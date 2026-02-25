@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mt-4">{{ post.title }}</h1>
+<p class="text-muted">{{ post.author }}, {{ post.date.strftime('%d.%m.%Y') }}</p>
+
+<div class="text-center mb-4">
+    <img class="img-fluid" src="{{ url_for('static', filename='images/' + post.image_id) }}" alt="{{ post.title }}">
+</div>
+
+<p class="text-justify">{{ post.text }}</p>
+
+<div class="card my-4">
+    <div class="card-body">
+        <h5 class="card-title">Оставьте комментарий</h5>
+        <form>
+            <div class="mb-3">
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+    </div>
+</div>
+
+{% for comment in post.comments %}
+<div class="d-flex mb-4">
+    <div class="flex-shrink-0">
+        <img src="{{ url_for('static', filename='images/avatar.jpg') }}" alt="avatar" class="rounded-circle" width="48" height="48">
+    </div>
+    <div class="flex-grow-1 ms-3">
+        <h5 class="mb-1">{{ comment.author }}</h5>
+        <p>{{ comment.text }}</p>
+
+        {% if comment.replies %}
+            {% for reply in comment.replies %}
+            <div class="d-flex mt-3">
+                <div class="flex-shrink-0">
+                    <img src="{{ url_for('static', filename='images/avatar.jpg') }}" alt="avatar" class="rounded-circle" width="48" height="48">
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    <h5 class="mb-1">{{ reply.author }}</h5>
+                    <p>{{ reply.text }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

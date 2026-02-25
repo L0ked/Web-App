@@ -2,3 +2,7 @@
 .idea
 .pytest_cache
 *.rar
+__pycache__/
+*.pyc
+site/
+*/build/

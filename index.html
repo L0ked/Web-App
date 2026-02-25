@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Веб-приложения — Лабораторные работы</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0e1117;
+            --surface: #161b22;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-dim: #8b949e;
+            --accent: #58a6ff;
+            --accent-glow: rgba(88, 166, 255, 0.15);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 30% 20%, rgba(88, 166, 255, 0.06) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 640px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 1rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+        }
+
+        .labs {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .lab-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.1rem 1.4rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.2s ease;
+        }
+
+        .lab-card:hover {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 24px rgba(88, 166, 255, 0.08);
+        }
+
+        .lab-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent);
+            background: var(--accent-glow);
+            padding: 0.35rem 0.65rem;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .lab-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .lab-card .arrow {
+            margin-left: auto;
+            color: var(--text-dim);
+            transition: transform 0.2s ease;
+        }
+
+        .lab-card:hover .arrow {
+            transform: translateX(3px);
+            color: var(--accent);
+        }
+
+        .lab-card.disabled {
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        footer {
+            margin-top: 3rem;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>// веб-приложения</h1>
+        <p class="subtitle">Лабораторные работы</p>
+
+        <div class="labs">
+            <a href="lab1/index.html" class="lab-card">
+                <span class="lab-num">01</span>
+                <span class="lab-title">Создание шаблона для отображения записи блога</span>
+                <span class="arrow">→</span>
+            </a>
+            <div class="lab-card disabled">
+                <span class="lab-num">02</span>
+                <span class="lab-title">Скоро...</span>
+                <span class="arrow">→</span>
+            </div>
+            <div class="lab-card disabled">
+                <span class="lab-num">03</span>
+                <span class="lab-title">Скоро...</span>
+                <span class="arrow">→</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>Петрачков Владимир Владимирович, группа 241-327</p>
+        </footer>
+    </div>
+</body>
+</html>
