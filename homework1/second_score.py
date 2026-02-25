@@ -1,0 +1,5 @@
+n = int(input())
+scores = list(map(int, input().split()))
+max_score = max(scores)
+second_max = max([s for s in scores if s < max_score])
+print(second_max)
