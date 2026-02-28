@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="my-4">Счётчик посещений</h1>
+
+<div class="alert alert-primary">
+    Вы посетили эту страницу: <strong>{{ count }}</strong>
+    {% if count % 10 == 1 and count % 100 != 11 %}
+        раз
+    {% elif count % 10 in [2, 3, 4] and count % 100 not in [12, 13, 14] %}
+        раза
+    {% else %}
+        раз
+    {% endif %}
+</div>
+
+<p class="text-muted">Счётчик реализован с использованием объекта <code>session</code>. Обновите страницу, чтобы увеличить счётчик.</p>
+{% endblock %}

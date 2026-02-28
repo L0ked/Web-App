@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="my-4">Заголовки запроса</h1>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Заголовок</th>
+            <th>Значение</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for key, value in headers %}
+        <tr>
+            <td><code>{{ key }}</code></td>
+            <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

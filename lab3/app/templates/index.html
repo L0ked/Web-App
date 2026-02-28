@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="my-4">Главная страница</h1>
+
+{% if current_user.is_authenticated %}
+<p>Добро пожаловать, <strong>{{ current_user.username }}</strong>!</p>
+{% else %}
+<p>Добро пожаловать! <a href="{{ url_for('login') }}">Войдите</a>, чтобы получить доступ ко всем страницам.</p>
+{% endif %}
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Задание к лабораторной работе №3</h5>
+        <p>Приложение включает функционал из предыдущих лабораторных работ, а также:</p>
+        <ul class="my-3">
+            <li>Страница «Счётчик посещений» — подсчёт визитов через session</li>
+            <li>Аутентификация пользователей через Flask-Login</li>
+            <li>«Секретная страница» — доступ только для аутентифицированных</li>
+        </ul>
+        <p>Логин: <code>user</code>, пароль: <code>qwerty</code></p>
+    </div>
+</div>
+{% endblock %}

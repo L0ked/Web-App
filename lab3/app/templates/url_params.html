@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="my-4">Параметры URL</h1>
+
+<p class="text-muted">Добавьте параметры к URL, например:
+    <a href="{{ url_for('url_params', name='Иван', age='20', city='Москва') }}">?name=Иван&amp;age=20&amp;city=Москва</a>
+</p>
+
+{% if params %}
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Параметр</th>
+            <th>Значение</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for key, value in params.items() %}
+        <tr>
+            <td><code>{{ key }}</code></td>
+            <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="alert alert-info">Параметры URL отсутствуют.</div>
+{% endif %}
+{% endblock %}
