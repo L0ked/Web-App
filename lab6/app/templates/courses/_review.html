@@ -1,0 +1,49 @@
+{% macro review_form(course, rating_options) %}
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Оставить отзыв</h5>
+        <form method="POST" action="{{ url_for('courses.create_review', course_id=course.id) }}">
+            <div class="mb-3">
+                <label for="rating" class="form-label">Оценка</label>
+                <select class="form-select" id="rating" name="rating">
+                    {% for value, label in rating_options %}
+                    <option value="{{ value }}" {{ 'selected' if value == 5 }}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="text" class="form-label">Текст отзыва</label>
+                <textarea class="form-control" id="text" name="text" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro show_review(review) %}
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <strong>{{ review.user.full_name if review.user else 'Пользователь' }}</strong>
+            <span class="badge bg-primary">{{ review.rating }} / 5</span>
+        </div>
+        <p class="card-text">{{ review.text }}</p>
+        <small class="text-muted">{{ review.created_at.strftime('%d.%m.%Y %H:%M') if review.created_at else '' }}</small>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro your_review(review) %}
+<div class="card mt-4 border-success">
+    <div class="card-body">
+        <h5 class="card-title text-success">Ваш отзыв</h5>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <strong>{{ review.user.full_name }}</strong>
+            <span class="badge bg-success">{{ review.rating }} / 5</span>
+        </div>
+        <p class="card-text">{{ review.text }}</p>
+        <small class="text-muted">{{ review.created_at.strftime('%d.%m.%Y %H:%M') if review.created_at else '' }}</small>
+    </div>
+</div>
+{% endmacro %}
