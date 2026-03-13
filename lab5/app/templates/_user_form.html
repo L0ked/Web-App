@@ -1,0 +1,68 @@
+{% macro user_form(action_url, roles, form_data, errors, is_edit=False, can_change_role=True) %}
+<form method="POST" action="{{ action_url }}">
+    {% if not is_edit %}
+    <div class="mb-3">
+        <label for="login" class="form-label">Логин<span class="text-danger">*</span></label>
+        <input type="text" class="form-control {{ 'is-invalid' if errors.get('login') }}"
+               id="login" name="login" value="{{ form_data.get('login', '') }}">
+        {% if errors.get('login') %}
+            {% for err in errors['login'] %}
+            <div class="invalid-feedback">{{ err }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Пароль<span class="text-danger">*</span></label>
+        <input type="password" class="form-control {{ 'is-invalid' if errors.get('password') }}"
+               id="password" name="password">
+        {% if errors.get('password') %}
+            {% for err in errors['password'] %}
+            <div class="invalid-feedback">{{ err }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="mb-3">
+        <label for="last_name" class="form-label">Фамилия<span class="text-danger">*</span></label>
+        <input type="text" class="form-control {{ 'is-invalid' if errors.get('last_name') }}"
+               id="last_name" name="last_name" value="{{ form_data.get('last_name', '') }}">
+        {% if errors.get('last_name') %}
+            {% for err in errors['last_name'] %}
+            <div class="invalid-feedback">{{ err }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="first_name" class="form-label">Имя<span class="text-danger">*</span></label>
+        <input type="text" class="form-control {{ 'is-invalid' if errors.get('first_name') }}"
+               id="first_name" name="first_name" value="{{ form_data.get('first_name', '') }}">
+        {% if errors.get('first_name') %}
+            {% for err in errors['first_name'] %}
+            <div class="invalid-feedback">{{ err }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="middle_name" class="form-label">Отчество</label>
+        <input type="text" class="form-control"
+               id="middle_name" name="middle_name" value="{{ form_data.get('middle_name', '') }}">
+    </div>
+    <div class="mb-3">
+        <label for="role_id" class="form-label">Роль</label>
+        <select class="form-select" id="role_id" name="role_id" {{ 'disabled' if not can_change_role }}>
+            <option value="">— Не выбрана —</option>
+            {% for role in roles %}
+            <option value="{{ role.id }}" {{ 'selected' if form_data.get('role_id') | string == role.id | string }}>{{ role.name }}</option>
+            {% endfor %}
+        </select>
+        {% if not can_change_role %}
+        {# hidden field to preserve value when select is disabled #}
+        <input type="hidden" name="role_id" value="{{ form_data.get('role_id', '') }}">
+        {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endmacro %}

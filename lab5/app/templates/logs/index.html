@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="my-4">Журнал посещений</h1>
+
+<div class="mb-3">
+    <a href="{{ url_for('logs.report_by_pages') }}" class="btn btn-outline-primary btn-sm">Отчёт по страницам</a>
+    <a href="{{ url_for('logs.report_by_users') }}" class="btn btn-outline-primary btn-sm">Отчёт по пользователям</a>
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>№</th>
+            <th>Пользователь</th>
+            <th>Страница</th>
+            <th>Дата</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in logs %}
+        <tr>
+            <td>{{ offset + loop.index }}</td>
+            <td>
+                {% if log.user_id %}
+                    {{ [log.last_name, log.first_name, log.middle_name] | select | join(' ') }}
+                {% else %}
+                    Неаутентифицированный пользователь
+                {% endif %}
+            </td>
+            <td>{{ log.path }}</td>
+            <td>{{ log.created_at | replace('T', ' ') if 'T' in (log.created_at or '') else log.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if total_pages > 1 %}
+<nav>
+    <ul class="pagination">
+        <li class="page-item {{ 'disabled' if page <= 1 }}">
+            <a class="page-link" href="{{ url_for('logs.log_index', page=page-1) }}">«</a>
+        </li>
+        {% for p in range(1, total_pages + 1) %}
+        <li class="page-item {{ 'active' if p == page }}">
+            <a class="page-link" href="{{ url_for('logs.log_index', page=p) }}">{{ p }}</a>
+        </li>
+        {% endfor %}
+        <li class="page-item {{ 'disabled' if page >= total_pages }}">
+            <a class="page-link" href="{{ url_for('logs.log_index', page=page+1) }}">»</a>
+        </li>
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

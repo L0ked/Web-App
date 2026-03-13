@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% from '_user_form.html' import user_form %}
+
+{% block content %}
+<h1 class="my-4">Редактирование пользователя</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        {{ user_form(url_for('user_edit', user_id=user.id), roles, form_data, errors, is_edit=True, can_change_role=can_change_role) }}
+    </div>
+</div>
+{% endblock %}
